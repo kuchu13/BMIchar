@@ -1,26 +1,37 @@
+package ex;
+
 import java.awt.*;
 import java.awt.event.*;
-public class ex01 {
+public class e01 {
 
-	public static void main(String[]args){
-		MainFrame mf=new MainFrame();
-		mf.setVisible(true);
-	}	
 		
 	}
 
-	class MainFrame extends Frame{
+	class MainFrame1 extends Frame{
+		MainFrame s = new MainFrame();
 		protected Button btnAns=new Button("分析");
 		protected Label lab1=new Label("BMI:");
-		protected Label lab2=new Label("體指:");
+		protected Label lab2=new Label("體脂:");
 		protected Label lab3=new Label("理想體重:");
 		protected Label lab4=new Label("熱量需求:");
+//		float g = s.getValue1();
+//		float h = s.getValue2();
+//		float w = s.getValue3();
+//		float a = s.getValue3();
+//		float A=w/h/h/10000;
+//		double B=1.2*A+0.23*a-5.4-10.8*g;
+//		float C=h*h*22/10000;
+//		float D=0;
+		protected Label labA=new Label("");        //(A+"")
+		protected Label labB=new Label("");		//(B+"")
+		protected Label labC=new Label("");		//(C+"")
+		protected Label labD=new Label("");		//(D+"")
 		
-		public MainFrame(){
+		public MainFrame1(){
 			initComp();
 		}
 		
-		private void initComp(){
+		protected void initComp(){
 			this.setLocation(100, 200);
 			this.setSize(500,600);
 			this.addWindowListener(new WindowAdapter(){
@@ -44,10 +55,13 @@ public class ex01 {
 			
 			btnAns.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ae){
-	//跳到3		
+				MainFrame1 mFrm1=new MainFrame1();
+				mFrm1.setVisible(false);
+				MainFrame2 mFrm2=new MainFrame2();
+				mFrm2.setVisible(true);
 				}
 			});
-			
+			labA.setText("tf2");
 			this.add(btnAns);
 			this.add(lab1);
 			this.add(lab2);
@@ -56,4 +70,4 @@ public class ex01 {
 			
 			
 		}
-	} 
+	}

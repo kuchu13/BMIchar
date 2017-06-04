@@ -1,3 +1,4 @@
+package ex;
 
 import java.awt.Button;
 import java.awt.Color;
@@ -5,21 +6,16 @@ import java.awt.Frame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class BMIchar3 {
+public class e02 {
 
-public static void main(String arg[]){
-	
-	MainFrame mFrm=new MainFrame();
-	mFrm.setVisible(true);
-}
 }
 
 
-class MainFrame extends Frame{
+class MainFrame2 extends Frame{
 
 	protected Button btn;
 
-			public MainFrame(){
+			public MainFrame2(){
 				initComp();
 			}
 			protected void initComp(){
@@ -42,9 +38,6 @@ class MainFrame extends Frame{
 				btn.setLocation(250, 30);
 				btn.setSize(200, 100);
 				this.add(btn);
-				
-				
-				
 				
 						}
 	}
