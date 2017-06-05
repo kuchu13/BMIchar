@@ -2,9 +2,10 @@ package ex;
 
 import java.awt.*;
 import java.awt.event.*;
-
+//Integer.toString()
 class MainFrame extends Frame {
 	int v1 = 0;
+	protected String gender,height,weight,age;
 	protected Button btnSum = new Button("確認");
 	protected Label lab1 = new Label("男:1,女:0");
 	protected Label lab2 = new Label("身高:(cm)");
@@ -27,6 +28,35 @@ class MainFrame extends Frame {
 	// public float getValue4(){
 	// return Float.parseFloat(tf4.getText());
 	// }
+	public void setGender(String gender1){
+		gender1=tf1.getText();
+		gender=gender1;
+	}
+	public void setHeight(String height1){
+		height1=tf2.getText();
+		height=height1;
+	}
+	public void setWeight(String weight1){
+		weight1=tf3.getText();
+		weight=weight1;
+	}
+	public void setAge(String age1){
+		age1=tf4.getText();
+		age=age1;
+	}
+	public String getGender1(){
+		return gender;
+	}
+	public String getHeight1(){
+		return height;
+	}
+	public String getWeight1(){
+		return weight;
+	}
+	public String getAge1(){
+		return age;
+	}
+
 	public MainFrame() {
 		initComp();
 	}
@@ -74,9 +104,8 @@ class MainFrame extends Frame {
 
 		btnSum.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent wa) {
-				MainFrame mFrm = new MainFrame();
-				mFrm.setVisible(false);
-				MainFrame1 mFrm1 = new MainFrame1();
+				MainFrame.this.setVisible(false);
+				e01 mFrm1 = new e01( getGender1(), getHeight1(), getWeight1(), getAge1());
 				mFrm1.setVisible(true);
 			}
 		});

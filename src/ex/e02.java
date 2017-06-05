@@ -6,15 +6,12 @@ import java.awt.Frame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class e02 {
+public class e02 extends Frame{
 
-}
-
-class MainFrame2 extends Frame {
 
 	protected Button btn;
 
-	public MainFrame2() {
+	public e02() {
 		initComp();
 	}
 

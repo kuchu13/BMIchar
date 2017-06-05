@@ -3,31 +3,32 @@ package ex;
 import java.awt.*;
 import java.awt.event.*;
 
-public class e01 {
+public class e01 extends Frame{
 
-}
-
-class MainFrame1 extends Frame {
 	MainFrame s = new MainFrame();
 	protected Button btnAns = new Button("分析");
 	protected Label lab1 = new Label("BMI:");
 	protected Label lab2 = new Label("體脂:");
 	protected Label lab3 = new Label("理想體重:");
 	protected Label lab4 = new Label("熱量需求:");
-	// float g = s.getValue1();
-	// float h = s.getValue2();
-	// float w = s.getValue3();
-	// float a = s.getValue3();
-	// float A=w/h/h/10000;
-	// double B=1.2*A+0.23*a-5.4-10.8*g;
-	// float C=h*h*22/10000;
-	// float D=0;
-	protected Label labA = new Label(""); // (A+"")
-	protected Label labB = new Label(""); // (B+"")
-	protected Label labC = new Label(""); // (C+"")
-	protected Label labD = new Label(""); // (D+"")
+	 String g = s.getGender1();
+	 String h = s.getHeight1();
+	 String w = s.getWeight1();
+	 String a = s.getAge1();
+	 int g2=Integer.parseInt(g);
+	 int h2=Integer.parseInt(h);
+	 int w2=Integer.parseInt(w);
+	 int a2=Integer.parseInt(a);
+	 float A=w2/h2/h2/10000;
+	 double B=1.2*A+0.23*a2-5.4-10.8*a2;
+	 float C=h2*h2*22/10000;
+	 float D=0;
+	protected Label labA = new Label(A+""); // (A+"")
+	protected Label labB = new Label(B+""); // (B+"")
+	protected Label labC = new Label(C+""); // (C+"")
+	protected Label labD = new Label(D+""); // (D+"")
 
-	public MainFrame1() {
+	public e01(String v1, String v2, String v3, String v4) {
 		initComp();
 	}
 
@@ -55,9 +56,8 @@ class MainFrame1 extends Frame {
 
 		btnAns.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				MainFrame1 mFrm1 = new MainFrame1();
-				mFrm1.setVisible(false);
-				MainFrame2 mFrm2 = new MainFrame2();
+				e01.this.setVisible(false);
+				e02 mFrm2 = new e02();
 				mFrm2.setVisible(true);
 			}
 		});
