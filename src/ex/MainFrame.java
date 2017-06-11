@@ -119,27 +119,36 @@ class MainFrame extends Frame {
 		lab2.setBounds(50, 150, 50, 40);
 		lab3.setBounds(50, 225, 50, 40);
 		lab4.setBounds(50, 300, 50, 40);
+		lab5.setBounds(50, 375, 100, 40);
 		lab1.setBackground(Color.ORANGE);
 		lab2.setBackground(Color.ORANGE);
 		lab3.setBackground(Color.ORANGE);
 		lab4.setBackground(Color.ORANGE);
+		lab5.setBackground(Color.ORANGE);
 		tf1.setBounds(100, 75, 250, 40);
 		tf2.setBounds(100, 150, 250, 40);
 		tf3.setBounds(100, 225, 250, 40);
 		tf4.setBounds(100, 300, 250, 40);
+		tf5.setBounds(150, 375, 200, 40);
 		tf1.setBackground(Color.ORANGE);
 		tf2.setBackground(Color.ORANGE);
 		tf3.setBackground(Color.ORANGE);
 		tf4.setBackground(Color.ORANGE);
+		tf5.setBackground(Color.ORANGE);
+
 		this.add(tf1);
 		this.add(tf2);
 		this.add(tf3);
 		this.add(tf4);
+		this.add(tf5);
+
 		this.add(btnSum);
 		this.add(lab1);
 		this.add(lab2);
 		this.add(lab3);
 		this.add(lab4);
+		this.add(lab5);
+
 
 		
 		
@@ -150,18 +159,23 @@ class MainFrame extends Frame {
 				setVisible(false);
 				
 				//儲存至資料庫程式碼
-				boolean save = false;//當假的成真就存進去
+				boolean save = true;//當假的成真就存進去
 				if(save){
+					int gender = -1;
 					int age = -1;//tf4
 					float weight = -1;//tf3
 					float height = -1;//tf2
 					String Name = tf1.getText();//tf1
 					try{
+						gender = Integer.valueOf(tf5.getText());
 						age = Integer.valueOf(tf4.getText());
 						weight = Float.valueOf(tf3.getText());
 						height = Float.valueOf(tf2.getText());
 					}catch(NumberFormatException e){
 						//輸入數值不是數字
+					}
+					if(gender<0||gender>1){
+						return;
 					}
 					if(age<=0){
 						return;
@@ -177,17 +191,7 @@ class MainFrame extends Frame {
 					}
 					dbconnection();
 					//SQL處理
-					dbconn.addData(Name,height,weight,age);
-					
-					java.util.List<PersonInfo> list = dbconn.getData(Name);
-					Calendar c = Calendar.getInstance();
-					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-					for(PersonInfo obj:list){
-						//取資料
-						c.setTimeInMillis(obj.time);
-						System.out.println(obj);
-						System.out.println(format.format(c.getTime()));
-					}
+					dbconn.addData(Name,height,weight,age,gender);
 					//SQL處理結束
 					dbconn.dispose();
 				}

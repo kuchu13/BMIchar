@@ -6,12 +6,14 @@ package ex;
  */
 public class PersonInfo {
 	
+	public final String gender;
 	public final int age;
 	public final float height;
 	public final float weight;
 	public final long time;
 	
-	public PersonInfo(int age,float height,float weight,long time){
+	public PersonInfo(String gender,int age,float height,float weight,long time){
+		this.gender = gender;
 		this.age = age;
 		this.height = height;
 		this.weight = weight;
@@ -19,7 +21,7 @@ public class PersonInfo {
 	}
 	
 	public String toString(){
-		return "age:"+age+",height:"+height+",weight:"+weight+" @ "+time;
+		return "gender:"+gender+",age:"+age+",height:"+height+",weight:"+weight+" @ "+time;
 	}
 
 }

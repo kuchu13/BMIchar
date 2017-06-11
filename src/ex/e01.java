@@ -3,6 +3,12 @@ package ex;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class e01 {
 
@@ -14,8 +20,9 @@ class MainFrame1 extends Frame {
 	protected Label lab1 = new Label("BMI:");
 	protected Label lab2 = new Label("體脂:");
 	protected Label lab3 = new Label("理想體重:");
-	protected Label lab4 = new Label("熱量需求:");
+	protected Label lab4 = new Label("建議熱量:");
 	float A=0;
+	float B=0;
 	//double B=1.2*A+0.23*a-5.4-10.8*g;
 	float C=0;
 	float D=0;
@@ -26,38 +33,48 @@ class MainFrame1 extends Frame {
 	protected Label labA = new Label(""); // (A+"")
 	protected Label labB = new Label(""); // (B+"")
 	protected Label labC = new Label(""); // (C+"")
-	protected Label labD = new Label(""); // (D+"")
+	protected JLabel labD = new JLabel(""); // (D+"")
+	
+	String Name;
 
 	public MainFrame1(MainFrame s) {
 		this.s = s;
+		this.Name = s.getPName();
 		init();
+		labD.setIcon(new ImageIcon(this.getClass().getResource("a.png")));
 		initComp();
 	}
 	
 	private void init(){
-		String n = s.getPName();
 		float h = s.getPHeight();
 		float w = s.getPWeight();
 		String a = s.getPAge();
+		int g = s.getPGender();
 
-		if(w!=-1&&h!=-1){
-			A = w/(h*h)*10000;
+		if(h!=-1){
 			C=h*h*22/10000;
-			labA = new Label(A+"");
-			labC = new Label(C+"");
+			labC.setText(C+"");
+			if(w!=-1){
+				A = w/(h*h)*10000;
+				labA.setText(A+"");
+				if(g==1||g==0){
+					B = (w-(g==0?0.82f:0.88f)*C)/w*100f;
+					labB.setText(B+"");
+				}
+			}
 		}
 	}
 
 	protected void initComp() {
 		this.setLocation(100, 200);
-		this.setSize(500, 600);
+		this.setSize(500, 800);
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent we) {
 				System.exit(0);
 			}
 		});
 		this.setLayout(null);
-		btnAns.setLocation(150, 450);
+		btnAns.setLocation(150, 536);
 		btnAns.setSize(200, 100);
 		btnAns.setBackground(Color.ORANGE);
 
@@ -72,13 +89,16 @@ class MainFrame1 extends Frame {
 		
 		labA.setBounds(50+60,75,60,50);
 		labA.setBackground(Color.red);
+		labB.setBounds(50+60,150,60,50);
+		labB.setBackground(Color.red);
 		labC.setBounds(50+60,225,60,50);
 		labC.setBackground(Color.red);
+		labD.setBounds(30,300,450,186);
 
 		btnAns.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				setVisible(false);
-				MainFrame2 mFrm2 = new MainFrame2();
+				MainFrame2 mFrm2 = new MainFrame2(Name);
 				mFrm2.setVisible(true);
 			}
 		});
@@ -86,9 +106,11 @@ class MainFrame1 extends Frame {
 		this.add(lab1);
 		this.add(lab2);
 		this.add(lab3);
-		this.add(lab4);
+		//this.add(lab4);
 		this.add(labA);
+		this.add(labB);
 		this.add(labC);
+		this.add(labD);
 
 	}
 }

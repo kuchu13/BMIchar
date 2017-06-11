@@ -63,7 +63,7 @@ public class DBConnection {
 			String sqlStr = "select * from bmichar where name = '"+Name+"'";
 			ResultSet rs = stm.executeQuery(sqlStr);
 			while (rs.next()) {
-				result.add(new PersonInfo(rs.getInt("age"),rs.getFloat("height"),rs.getFloat("weight"),rs.getLong("time")));
+				result.add(new PersonInfo(rs.getString("gender"),rs.getInt("age"),rs.getFloat("height"),rs.getFloat("weight"),rs.getLong("time")));
 			}
 		} catch (SQLException ex) {
 			JOptionPane.showMessageDialog(frm, ex.toString());
@@ -73,12 +73,12 @@ public class DBConnection {
 		return result;
 	}//取這個人的所有資料
 	
-	public void addData(String Name,float height,float weight,int age){
+	public void addData(String Name,float height,float weight,int age,int gender){
 		//insert into bmichar () values ()
 		try {
 			Statement stm = dbConn.createStatement();
 			Calendar c = Calendar.getInstance();
-			stm.executeUpdate("insert into bmichar (name,height,weight,age,time) values ('"+Name+"','"+height+"','"+weight+"','"+age+"','"+c.getTimeInMillis()+"')");
+			stm.executeUpdate("insert into bmichar (name,height,weight,age,gender,time) values ('"+Name+"','"+height+"','"+weight+"','"+age+"','"+gender+"','"+c.getTimeInMillis()+"')");
 			JOptionPane.showMessageDialog(frm, "新增成功");
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(frm, e.toString());
