@@ -2,19 +2,41 @@ package ex;
 
 import java.awt.*;
 import java.awt.event.*;
-//Integer.toString()
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+
 class MainFrame extends Frame {
+	
+	private DBConnection dbconn;
+
+	
 	int v1 = 0;
-	protected String gender,height,weight,age;
-	protected Button btnSum = new Button("�T�{");
-	protected Label lab1 = new Label("�k:1,�k:0");
-	protected Label lab2 = new Label("����:(cm)");
-	protected Label lab3 = new Label("�魫:");
-	protected Label lab4 = new Label("�~��:");
+	protected Button btnSum = new Button("送出");//送出
+	protected Label lab1 = new Label("姓名");//名子
+	protected Label lab2 = new Label("身高(cm)");//身高
+	protected Label lab3 = new Label("體重(kg)");//體重
+	protected Label lab4 = new Label("年齡");//年齡
+	protected Label lab5 = new Label("性別 (0女，1男)");
+
 	protected TextField tf1 = new TextField("");
 	protected TextField tf2 = new TextField("");
 	protected TextField tf3 = new TextField("");
 	protected TextField tf4 = new TextField("");
+	protected TextField tf5 = new TextField("");
 
 	// public float getValue1(){
 	// return Float.parseFloat(tf1.getText());
@@ -28,43 +50,54 @@ class MainFrame extends Frame {
 	// public float getValue4(){
 	// return Float.parseFloat(tf4.getText());
 	// }
-	public void setGender(String gender1){
-		gender1=tf1.getText();
-		gender=gender1;
-	}
-	public void setHeight(String height1){
-		height1=tf2.getText();
-		height=height1;
-	}
-	public void setWeight(String weight1){
-		weight1=tf3.getText();
-		weight=weight1;
-	}
-	public void setAge(String age1){
-		age1=tf4.getText();
-		age=age1;
-	}
-	public String getGender1(){
-		return gender;
-	}
-	public String getHeight1(){
-		return height;
-	}
-	public String getWeight1(){
-		return weight;
-	}
-	public String getAge1(){
-		return age;
-	}
-
 	public MainFrame() {
 		initComp();
 	}
+	
+	public String getPName(){
+		return tf1.getText();
+	}
+	
+	public Float getPHeight(){
+		try{
+			return Float.valueOf(tf2.getText());
+		}catch(NumberFormatException e){
+			//數值不是數字
+		}
+		return -1f;
+	}
+	
+	public Float getPWeight(){
+		try{
+			return Float.valueOf(tf3.getText());
+		}catch(NumberFormatException e){
+			//數值不是數字
+		}
+		return -1f;
+	}
+	
+	public String getPAge(){
+		return tf4.getText();
+	}
+	
+	public int getPGender(){
+		try{
+			return Integer.valueOf(tf5.getText());
+		}catch(NumberFormatException e){
+			//數值不是數字
+		}
+		return -1;
+	}
+
+	public MainFrame getInstance(){
+		return this;
+	}
 
 	protected void initComp() {
+
 		this.setLocation(100, 200);
 		this.setSize(500, 600);
-		// �[�J������ť��
+		// �[�J������ť��
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent we) {
 				System.exit(0);
@@ -76,6 +109,12 @@ class MainFrame extends Frame {
 		btnSum.setSize(200, 100);
 		// lab1.setLocation(175,100);
 		// lab1.setSize(100,40);
+		/*
+		lab1.setFont(new Font("微軟正黑體", Font.PLAIN, 12));
+		lab2.setFont(new Font("微軟正黑體", Font.PLAIN, 12));
+		lab3.setFont(new Font("微軟正黑體", Font.PLAIN, 12));
+		lab4.setFont(new Font("微軟正黑體", Font.PLAIN, 12));
+		*/
 		lab1.setBounds(50, 75, 50, 40);
 		lab2.setBounds(50, 150, 50, 40);
 		lab3.setBounds(50, 225, 50, 40);
@@ -102,14 +141,61 @@ class MainFrame extends Frame {
 		this.add(lab3);
 		this.add(lab4);
 
+		
+		
 		btnSum.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent wa) {
-				MainFrame.this.setVisible(false);
-				e01 mFrm1 = new e01( getGender1(), getHeight1(), getWeight1(), getAge1());
+				MainFrame1 mFrm1 = new MainFrame1(getInstance());
 				mFrm1.setVisible(true);
+				setVisible(false);
+				
+				//儲存至資料庫程式碼
+				boolean save = false;//當假的成真就存進去
+				if(save){
+					int age = -1;//tf4
+					float weight = -1;//tf3
+					float height = -1;//tf2
+					String Name = tf1.getText();//tf1
+					try{
+						age = Integer.valueOf(tf4.getText());
+						weight = Float.valueOf(tf3.getText());
+						height = Float.valueOf(tf2.getText());
+					}catch(NumberFormatException e){
+						//輸入數值不是數字
+					}
+					if(age<=0){
+						return;
+					}
+					if(weight<=0){
+						return;
+					}
+					if(height<=0){
+						return;
+					}
+					if(Name==null||Name.length()<1){
+						return;
+					}
+					dbconnection();
+					//SQL處理
+					dbconn.addData(Name,height,weight,age);
+					
+					java.util.List<PersonInfo> list = dbconn.getData(Name);
+					Calendar c = Calendar.getInstance();
+					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					for(PersonInfo obj:list){
+						//取資料
+						c.setTimeInMillis(obj.time);
+						System.out.println(obj);
+						System.out.println(format.format(c.getTime()));
+					}
+					//SQL處理結束
+					dbconn.dispose();
+				}
 			}
 		});
-
 	}
-
+	//MySQL Code
+	private void dbconnection() {
+		dbconn = new DBConnection(this, "root", "");
+	}
 }

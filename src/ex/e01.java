@@ -1,35 +1,51 @@
 package ex;
 
+
 import java.awt.*;
 import java.awt.event.*;
 
-public class e01 extends Frame{
+public class e01 {
 
-	MainFrame s = new MainFrame();
-	protected Button btnAns = new Button("¤ÀªR");
+}
+
+class MainFrame1 extends Frame {
+	MainFrame s;
+	protected Button btnAns = new Button("åˆ†æ");
 	protected Label lab1 = new Label("BMI:");
-	protected Label lab2 = new Label("Åé¯×:");
-	protected Label lab3 = new Label("²z·QÅé­«:");
-	protected Label lab4 = new Label("¼ö¶q»İ¨D:");
-	 String g = s.getGender1();
-	 String h = s.getHeight1();
-	 String w = s.getWeight1();
-	 String a = s.getAge1();
-	 int g2=Integer.parseInt(g);
-	 int h2=Integer.parseInt(h);
-	 int w2=Integer.parseInt(w);
-	 int a2=Integer.parseInt(a);
-	 float A=w2/h2/h2/10000;
-	 double B=1.2*A+0.23*a2-5.4-10.8*a2;
-	 float C=h2*h2*22/10000;
-	 float D=0;
-	protected Label labA = new Label(A+""); // (A+"")
-	protected Label labB = new Label(B+""); // (B+"")
-	protected Label labC = new Label(C+""); // (C+"")
-	protected Label labD = new Label(D+""); // (D+"")
+	protected Label lab2 = new Label("é«”è„‚:");
+	protected Label lab3 = new Label("ç†æƒ³é«”é‡:");
+	protected Label lab4 = new Label("ç†±é‡éœ€æ±‚:");
+	float A=0;
+	//double B=1.2*A+0.23*a-5.4-10.8*g;
+	float C=0;
+	float D=0;
+	// float A=w/h/h/10000;
+	// double B=1.2*A+0.23*a-5.4-10.8*g;
+	// float C=h*h*22/10000;
+	// float D=0;
+	protected Label labA = new Label(""); // (A+"")
+	protected Label labB = new Label(""); // (B+"")
+	protected Label labC = new Label(""); // (C+"")
+	protected Label labD = new Label(""); // (D+"")
 
-	public e01(String v1, String v2, String v3, String v4) {
+	public MainFrame1(MainFrame s) {
+		this.s = s;
+		init();
 		initComp();
+	}
+	
+	private void init(){
+		String n = s.getPName();
+		float h = s.getPHeight();
+		float w = s.getPWeight();
+		String a = s.getPAge();
+
+		if(w!=-1&&h!=-1){
+			A = w/(h*h)*10000;
+			C=h*h*22/10000;
+			labA = new Label(A+"");
+			labC = new Label(C+"");
+		}
 	}
 
 	protected void initComp() {
@@ -53,20 +69,26 @@ public class e01 extends Frame{
 		lab2.setBackground(Color.PINK);
 		lab3.setBackground(Color.PINK);
 		lab4.setBackground(Color.PINK);
+		
+		labA.setBounds(50+60,75,60,50);
+		labA.setBackground(Color.red);
+		labC.setBounds(50+60,225,60,50);
+		labC.setBackground(Color.red);
 
 		btnAns.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				e01.this.setVisible(false);
-				e02 mFrm2 = new e02();
+				setVisible(false);
+				MainFrame2 mFrm2 = new MainFrame2();
 				mFrm2.setVisible(true);
 			}
 		});
-		labA.setText("tf2");
 		this.add(btnAns);
 		this.add(lab1);
 		this.add(lab2);
 		this.add(lab3);
 		this.add(lab4);
+		this.add(labA);
+		this.add(labC);
 
 	}
 }

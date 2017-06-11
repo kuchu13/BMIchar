@@ -1,17 +1,21 @@
 package ex;
 
+
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class e02 extends Frame{
+public class e02 {
 
+}
+
+class MainFrame2 extends Frame {
 
 	protected Button btn;
 
-	public e02() {
+	public MainFrame2() {
 		initComp();
 	}
 
@@ -31,7 +35,7 @@ public class e02 extends Frame{
 		btn.setLocation(30, 30);
 		btn.setSize(200, 100);
 		this.add(btn);
-		btn = new Button("Åé¯×");
+		btn = new Button("é«”è„‚");
 		btn.setLocation(250, 30);
 		btn.setSize(200, 100);
 		this.add(btn);
