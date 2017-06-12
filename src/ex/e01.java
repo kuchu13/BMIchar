@@ -60,6 +60,8 @@ class MainFrame1 extends Frame {
 				if(g==1||g==0){
 					B = (w-(g==0?0.82f:0.88f)*C)/w*100f;
 					labB.setText(B+"");
+
+
 				}
 			}
 		}

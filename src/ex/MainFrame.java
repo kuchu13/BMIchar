@@ -97,7 +97,7 @@ class MainFrame extends Frame {
 
 		this.setLocation(100, 200);
 		this.setSize(500, 600);
-		// �[�J������ť��
+		
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent we) {
 				System.exit(0);
@@ -159,7 +159,7 @@ class MainFrame extends Frame {
 				setVisible(false);
 				
 				//儲存至資料庫程式碼
-				boolean save = true;//當假的成真就存進去
+				boolean save = false;//當假的成真就存進去
 				if(save){
 					int gender = -1;
 					int age = -1;//tf4
